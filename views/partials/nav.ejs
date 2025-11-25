@@ -1,0 +1,24 @@
+<!-- Navigation Header -->
+    <header class="header">
+      <div class="logo">
+        <a href="/" style="display: flex; align-items: center; text-decoration: none; gap: 0.5px;">
+          <img src="/Asset/images/logo.png" alt="Timely Team logo">
+          <span class="logo-text">Timely</span>
+        </a>
+      </div>
+      <nav class="nav">
+        <% if (page === 'home') { %>
+          <a class="btn btn-ghost" href="/events">View Events</a>
+          <a class="btn btn-primary" href="/events/create">Create Event</a>
+        <% } else if (page === 'events') { %>
+          <a class="btn btn-ghost" href="/">Home</a>
+          <a class="btn btn-primary" href="/events/create">Create Event</a>
+        <% } else if (page === 'create' || page === 'edit') { %>
+          <a class="btn btn-ghost" href="/">Home</a>
+          <a class="btn btn-ghost" href="/events">View Events</a>
+        <% } else { %>
+          <a class="btn btn-ghost" href="/">Home</a>
+          <a class="btn btn-ghost" href="/events">View Events</a>
+        <% } %>
+      </nav>
+    </header>

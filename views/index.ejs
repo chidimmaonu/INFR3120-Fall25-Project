@@ -1,11 +1,30 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/Content/app.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<%- include('partials/header') %>
+<%- include('partials/nav') %>
+
+
+<!-- Landing Section -->
+<section class="card hero card-muted">
+  <div class="hero-main">
+    <span class="badge">First Release</span>
+    <h1>Plan, list, and manage events easily.</h1>
+    <p>
+      Timely is a simple event planner where you can create, edit, and delete events.
+      This first release focuses on clean layouts and working CRUD functionality.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="/events/create">Create Event</a>
+      <a class="btn btn-ghost" href="/events">Browse Events</a>
+    </div>
+  </div>
+  <div class="hero-side card hero-summary">
+    <h2>What this version includes</h2>
+    <ul>
+      <li>Landing page with team logo</li>
+      <li>Events table dashboard</li>
+      <li>Create & Edit event form</li>
+      <li>Delete event with confirmation</li>
+    </ul>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
