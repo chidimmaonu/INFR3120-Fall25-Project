@@ -8,56 +8,62 @@ var logger = require('morgan');
 require('dotenv').config();
 
 // Import mongoose
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-// Import the database config to get the MongoDB URI
-let DB = require('./database');
-
-// Import the user model
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('✅ MongoDB Connected Successfully!');
+  })
+  .catch((err) => {
+    console.error(' MongoDB Connection Error:', err.message);
+    console.log('App will run without database');
+  });
 
 // Import routes
 var indexRouter = require('../routes/index');
-var usersRouter = require('../routes/users');
+var eventsRouter = require('../routes/events');
 
 var app = express();
 
-// Connect to MongoDB using mongoose
-mongoose.connect(DB.URI)
-let mongoDB = mongoose.connection;
-mongoDB.on('error', console.error.bind(console, 'Connection Error:'));
-mongoDB.once('open', ()=>{
-  console.log('Connected to MongoDB...');
-});
-
-
-// view engine setup
+// View engine setup
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
 
+// Middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// Static files from public folder
 app.use(express.static(path.join(__dirname, '../public')));
-app.use(express.static(path.join(__dirname, '../node_modules')));
 
-// Route handling
+// Serve Asset folder
+app.use('/Asset', express.static(path.join(__dirname, '../public/Asset')));
+
+// Serve Content folder  
+app.use('/Content', express.static(path.join(__dirname, '../public/Content')));
+
+// Serve Script folder
+app.use('/Script', express.static(path.join(__dirname, '../public/Script')));
+
+// Routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/events', eventsRouter);
 
-// catch 404 and forward to error handler
+// Catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
+// Error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
+  // Set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // Render the error page
   res.status(err.status || 500);
   res.render('error');
 });

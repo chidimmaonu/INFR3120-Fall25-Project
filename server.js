@@ -4,11 +4,12 @@
  * Module dependencies.
  */
 
+// Load environment variables first
+require('dotenv').config();
+
 var app = require('./config/app');
 var debug = require('debug')('project:server');
 var http = require('http');
-var mongoose = require('mongoose');
-var connectDB = require('./config/database');
 
 /**
  * Get port from environment and store in Express.
@@ -89,4 +90,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log('🚀 Server running at http://localhost:' + addr.port);
 }
