@@ -1,0 +1,75 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+
+<!-- Event Form Section -->
+<section class="card">
+  <h1><%= isEdit ? 'Edit Event' : 'Create New Event' %></h1>
+ 
+  <form action="<%= isEdit ? '/events/edit/' + event._id : '/events/create' %>" method="POST" class="grid grid-2">
+   
+    <!-- Title Field -->
+    <div>
+      <label class="label" for="title">Title *</label>
+      <input
+        class="input"
+        id="title"
+        name="title"
+        type="text"
+        required
+        placeholder="e.g., Project Demo Day"
+        value="<%= event ? event.title : '' %>"
+      >
+    </div>
+   
+    <!-- Date Field -->
+    <div>
+      <label class="label" for="date">Date *</label>
+      <input
+        class="input"
+        id="date"
+        name="date"
+        type="date"
+        required
+        value="<%= event ? event.date : '' %>"
+      >
+    </div>
+   
+    <!-- Location Field -->
+    <div>
+      <label class="label" for="location">Location *</label>
+      <input
+        class="input"
+        id="location"
+        name="location"
+        type="text"
+        required
+        placeholder="e.g., Room 204"
+        value="<%= event ? event.location : '' %>"
+      >
+    </div>
+   
+    <!-- Description Field (Full Width) -->
+    <div class="full-width">
+      <label class="label" for="description">Description</label>
+      <textarea
+        class="input"
+        id="description"
+        name="description"
+        rows="4"
+        placeholder="Short description..."
+      ><%= event ? event.description : '' %></textarea>
+    </div>
+   
+    <!-- Form Actions -->
+    <div class="full-width" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px;">
+      <a href="/events" class="btn btn-ghost">Cancel</a>
+      <button type="submit" class="btn btn-primary">
+        <%= isEdit ? 'Update Event' : 'Create Event' %>
+      </button>
+    </div>
+  </form>
+</section>
+
+
+<%- include('../partials/footer') %>

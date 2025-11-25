@@ -1,0 +1,54 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+
+<!-- Success/Error Message -->
+<% if (message) { %>
+  <div class="alert alert-success">
+    <%= message %>
+  </div>
+<% } %>
+
+
+<!-- Events Table Section -->
+<section class="card">
+  <div class="events-header">
+    <h1>Events</h1>
+    <span class="badge"><%= events.length %> total</span>
+  </div>
+ 
+  <% if (events.length === 0) { %>
+    <p style="text-align: center; color: #666; padding: 40px 0;">
+      No events yet. <a href="/events/create" style="color: var(--primary);">Create your first event</a>
+    </p>
+  <% } else { %>
+    <table class="table" aria-describedby="events-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th style="width: 200px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% events.forEach(function(event) { %>
+          <tr>
+            <td><strong><%= event.title %></strong></td>
+            <td><%= new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %></td>
+            <td><%= event.location %></td>
+            <td>
+              <a href="/events/edit/<%= event._id %>" class="btn btn-ghost">Edit</a>
+              <form action="/events/delete/<%= event._id %>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this event?');">
+                <button type="submit" class="btn btn-ghost">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } %>
+</section>
+
+
+<%- include('../partials/footer') %>
