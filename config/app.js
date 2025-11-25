@@ -4,12 +4,31 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// Load environment variables
+require('dotenv').config();
+
+// Import mongoose
+let mongoose = require('mongoose');
+
+// Import the database config to get the MongoDB URI
+let DB = require('./database');
+
+// Import the user model
 
 // Import routes
 var indexRouter = require('../routes/index');
 var usersRouter = require('../routes/users');
 
 var app = express();
+
+// Connect to MongoDB using mongoose
+mongoose.connect(DB.URI)
+let mongoDB = mongoose.connection;
+mongoDB.on('error', console.error.bind(console, 'Connection Error:'));
+mongoDB.once('open', ()=>{
+  console.log('Connected to MongoDB...');
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
@@ -21,6 +40,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../node_modules')));
 
 // Route handling
 app.use('/', indexRouter);

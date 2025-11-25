@@ -7,6 +7,8 @@
 var app = require('./config/app');
 var debug = require('debug')('project:server');
 var http = require('http');
+var mongoose = require('mongoose');
+var connectDB = require('./config/database');
 
 /**
  * Get port from environment and store in Express.
