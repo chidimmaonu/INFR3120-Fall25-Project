@@ -1,24 +1,31 @@
 <!-- Navigation Header -->
-    <header class="header">
-      <div class="logo">
-        <a href="/" style="display: flex; align-items: center; text-decoration: none; gap: 0.5px;">
-          <img src="/Asset/images/logo.png" alt="Timely Team logo">
-          <span class="logo-text">Timely</span>
-        </a>
-      </div>
-      <nav class="nav">
-        <% if (page === 'home') { %>
-          <a class="btn btn-ghost" href="/events">View Events</a>
-          <a class="btn btn-primary" href="/events/create">Create Event</a>
-        <% } else if (page === 'events') { %>
-          <a class="btn btn-ghost" href="/">Home</a>
-          <a class="btn btn-primary" href="/events/create">Create Event</a>
-        <% } else if (page === 'create' || page === 'edit') { %>
-          <a class="btn btn-ghost" href="/">Home</a>
-          <a class="btn btn-ghost" href="/events">View Events</a>
-        <% } else { %>
-          <a class="btn btn-ghost" href="/">Home</a>
-          <a class="btn btn-ghost" href="/events">View Events</a>
-        <% } %>
-      </nav>
-    </header>
+<!-- Shows different navigation items based on user authentication status -->
+<header class="header">
+  <div class="logo">
+    <a href="/" style="display: flex; align-items: center; text-decoration: none; gap: 0.5px;">
+      <img src="/Asset/images/logo.png" alt="Timely Team logo">
+      <span class="logo-text">Timely</span>
+    </a>
+  </div>
+  
+  <nav class="nav">
+    <!-- Common Navigation Items -->
+    <a class="btn btn-ghost" href="/">Home</a>
+    <a class="btn btn-ghost" href="/events">View Events</a>
+    
+    <!-- Authentication-based Navigation -->
+    <% if (typeof user !== 'undefined' && user) { %>
+      <!-- User is LOGGED IN - Show Create Event and Logout -->
+      <a class="btn btn-primary" href="/events/create">Create Event</a>
+      <a class="btn btn-ghost" href="/auth/logout">Logout</a>
+      
+      <!-- Display Username (Optional) -->
+      <span class="user-greeting">
+        Hello, <strong><%= user.username %></strong>
+      </span>
+    <% } else { %>
+      <!-- User is NOT logged in - Show Login only -->
+      <a class="btn btn-primary" href="/auth/login">Login</a>
+    <% } %>
+  </nav>
+</header>
