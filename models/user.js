@@ -45,23 +45,17 @@ const userSchema = new mongoose.Schema({
 /**
  * Pre-save middleware to hash password before saving to database
  * This runs automatically before user.save()
+ * NOTE: No 'next' argument is needed for async middleware; errors are thrown and handled by Mongoose.
  */
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function () {
   // Only hash the password if it has been modified (or is new)
   if (!this.isModified('password')) {
-    return next();
+    return;
   }
-  
-  try {
-    // Generate salt (random data for hashing)
-    const salt = await bcrypt.genSalt(10);
-    
-    // Hash the password with the salt
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (error) {
-    next(error);
-  }
+  // Generate salt (random data for hashing)
+  const salt = await bcrypt.genSalt(10);
+  // Hash the password with the salt
+  this.password = await bcrypt.hash(this.password, salt);
 });
 
 /**
