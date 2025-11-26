@@ -1,0 +1,59 @@
+view/auth/login.ejs
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<!-- Login Form Section -->
+<section class="card auth-container">
+  <div class="auth-header">
+    <h1>Welcome Back</h1>
+    <p>Log in to manage your events</p>
+  </div>
+
+  <!-- Display Flash Messages -->
+  <%- include('../partials/messages') %>
+
+  <!-- Login Form -->
+  <form action="/auth/login" method="POST" class="auth-form">
+    
+    <!-- Username Field -->
+    <div class="form-group">
+      <label class="label" for="username">Username *</label>
+      <input 
+        class="input" 
+        id="username" 
+        name="username" 
+        type="text"
+        required 
+        placeholder="Enter your username"
+        autofocus
+      >
+    </div>
+    
+    <!-- Password Field -->
+    <div class="form-group">
+      <label class="label" for="password">Password *</label>
+      <input 
+        class="input" 
+        id="password" 
+        name="password" 
+        type="password" 
+        required
+        placeholder="Enter your password"
+      >
+    </div>
+    
+    <!-- Submit Button -->
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-block">
+        Log In
+      </button>
+    </div>
+
+    <!-- Register Link -->
+    <div class="auth-footer">
+      <p>Don't have an account? <a href="/auth/register" class="auth-link">Register here</a></p>
+    </div>
+  </form>
+</section>
+
+<%- include('../partials/footer') %>
