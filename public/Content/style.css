@@ -275,6 +275,90 @@ textarea {
   color: #991b1b;
 }
 
+/* ---------- Authentication Pages ---------- */
+.auth-container {
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.auth-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+}
+
+.auth-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-hint {
+  font-size: 12px;
+  color: #666;
+  margin-top: -2px;
+}
+
+.btn-block {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.auth-footer {
+  text-align: center;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  margin-top: 10px;
+}
+
+.auth-footer p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.auth-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- User Greeting in Navigation ---------- */
+.user-greeting {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.user-greeting strong {
+  color: var(--primary);
+  margin-left: 4px;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 720px) {
   .hero {
