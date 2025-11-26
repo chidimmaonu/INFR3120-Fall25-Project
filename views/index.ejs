@@ -1,18 +1,27 @@
+views/index.ejs
+
 <%- include('partials/header') %>
 <%- include('partials/nav') %>
-
 
 <!-- Landing Section -->
 <section class="card hero card-muted">
   <div class="hero-main">
     <span class="badge">First Release</span>
-    <h1>Plan, list, and manage events easily</h1>
+    <h1>Plan, list, and manage events easily.</h1>
     <p>
-      Timely is a simple event planner where you can view, create, edit and delete events.
+      Timely is a simple event planner where you can create, edit, and delete events.
+      This first release focuses on clean layouts and working CRUD functionality.
     </p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="/events/create">Create Event</a>
-      <a class="btn btn-ghost" href="/events">Browse Events</a>
+      <% if (typeof user !== 'undefined' && user) { %>
+        <!-- User is logged in -->
+        <a class="btn btn-primary" href="/events/create">Create Event</a>
+        <a class="btn btn-ghost" href="/events">Browse Events</a>
+      <% } else { %>
+        <!-- User is not logged in -->
+        <a class="btn btn-primary" href="/auth/register">Get Started</a>
+        <a class="btn btn-ghost" href="/events">Browse Events</a>
+      <% } %>
     </div>
   </div>
   <div class="hero-side card hero-summary">

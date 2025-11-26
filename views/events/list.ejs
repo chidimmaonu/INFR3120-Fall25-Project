@@ -1,14 +1,8 @@
 <%- include('../partials/header') %>
 <%- include('../partials/nav') %>
 
-
-<!-- Success/Error Message -->
-<% if (message) { %>
-  <div class="alert alert-success">
-    <%= message %>
-  </div>
-<% } %>
-
+<!-- Display Flash Messages -->
+<%- include('../partials/messages') %>
 
 <!-- Events Table Section -->
 <section class="card">
@@ -16,10 +10,14 @@
     <h1>Events</h1>
     <span class="badge"><%= events.length %> total</span>
   </div>
- 
+  
   <% if (events.length === 0) { %>
     <p style="text-align: center; color: #666; padding: 40px 0;">
-      No events yet. <a href="/events/create" style="color: var(--primary);">Create your first event</a>
+      <% if (typeof user !== 'undefined' && user) { %>
+        No events yet. <a href="/events/create" style="color: var(--primary);">Create your first event</a>
+      <% } else { %>
+        No events yet. <a href="/auth/login" style="color: var(--primary);">Login to create events</a>
+      <% } %>
     </p>
   <% } else { %>
     <table class="table" aria-describedby="events-table">
@@ -38,10 +36,16 @@
             <td><%= new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %></td>
             <td><%= event.location %></td>
             <td>
-              <a href="/events/edit/<%= event._id %>" class="btn btn-ghost">Edit</a>
-              <form action="/events/delete/<%= event._id %>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this event?');">
-                <button type="submit" class="btn btn-ghost">Delete</button>
-              </form>
+              <% if (typeof user !== 'undefined' && user) { %>
+                <!-- User is logged in - show Edit and Delete buttons -->
+                <a href="/events/edit/<%= event._id %>" class="btn btn-ghost">Edit</a>
+                <form action="/events/delete/<%= event._id %>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this event?');">
+                  <button type="submit" class="btn btn-ghost">Delete</button>
+                </form>
+              <% } else { %>
+                <!-- User is not logged in - show login prompt -->
+                <a href="/auth/login" class="btn btn-ghost">Login to Edit</a>
+              <% } %>
             </td>
           </tr>
         <% }); %>
@@ -50,5 +54,8 @@
   <% } %>
 </section>
 
-
 <%- include('../partials/footer') %>
+
+
+
+ 
