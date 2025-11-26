@@ -1,14 +1,8 @@
 <%- include('../partials/header') %>
 <%- include('../partials/nav') %>
 
-
-<!-- Success/Error Message -->
-<% if (message) { %>
-  <div class="alert alert-success">
-    <%= message %>
-  </div>
-<% } %>
-
+<!-- Display Flash Messages -->
+<%- include('../partials/messages') %>
 
 <!-- Events Table Section -->
 <section class="card">
@@ -16,7 +10,7 @@
     <h1>Events</h1>
     <span class="badge"><%= events.length %> total</span>
   </div>
- 
+  
   <% if (events.length === 0) { %>
     <p style="text-align: center; color: #666; padding: 40px 0;">
       No events yet. <a href="/events/create" style="color: var(--primary);">Create your first event</a>
@@ -49,6 +43,6 @@
     </table>
   <% } %>
 </section>
-
-
+</div>
 <%- include('../partials/footer') %>
+
