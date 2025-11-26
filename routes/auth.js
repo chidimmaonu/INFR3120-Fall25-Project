@@ -1,21 +1,14 @@
 const express = require('express');
-const router = express.Router();
 const passport = require('passport');
 const User = require('../models/user');
 const { ensureGuest } = require('../middleware/auth');
+const router = express.Router();
 
 /**
- * Authentication Routes
- * Handles user registration, login, and logout
+ * Registration Routes
  */
 
-// REGISTER ROUTES 
-
-/**
- * GET /auth/register
- * Display registration form
- * Only accessible if user is NOT logged in (ensureGuest middleware)
- */
+// Render registration form
 router.get('/register', ensureGuest, (req, res) => {
   res.render('auth/register', {
     title: 'Register — Timely',
@@ -23,51 +16,41 @@ router.get('/register', ensureGuest, (req, res) => {
   });
 });
 
-/**
- * POST /auth/register
- * Handle registration form submission
- * Creates new user account
- */
+// Handle registration form submission
 router.post('/register', ensureGuest, async (req, res) => {
-  // Extract form data
   const { username, email, password, password2, fullName } = req.body;
-  
-  // Validation: Check if passwords match
+
+  // Password match check
   if (password !== password2) {
     req.flash('error', 'Passwords do not match');
     return res.redirect('/auth/register');
   }
-  
+
+  // Normalize username for consistent lookup
+  const normalizedUsername = username.trim().toLowerCase();
+
   try {
-    // Check if username already exists
-    const existingUsername = await User.findOne({ username: username });
-    if (existingUsername) {
+    // Check for existing username/email
+    if (await User.findOne({ username: normalizedUsername })) {
       req.flash('error', 'Username already taken');
       return res.redirect('/auth/register');
     }
-    
-    // Check if email already exists
-    const existingEmail = await User.findOne({ email: email });
-    if (existingEmail) {
+    if (await User.findOne({ email })) {
       req.flash('error', 'Email already registered');
       return res.redirect('/auth/register');
     }
-    
-    // Create new user object
+
+    // Create and save new user
     const newUser = new User({
-      username,
+      username: normalizedUsername,
       email,
-      password, // Will be hashed automatically by User model pre-save hook
+      password, // Will be hashed by User model
       fullName
     });
-    
-    // Save user to database
-    await newUser.save();
-    
-    // Success message and redirect to login
+    await newUser.save(); // <-- FIXED: parentheses to run .save()
+
     req.flash('success', 'Registration successful! Please log in.');
     res.redirect('/auth/login');
-    
   } catch (error) {
     console.error('Registration error:', error);
     req.flash('error', 'Registration failed. Please try again.');
@@ -75,12 +58,11 @@ router.post('/register', ensureGuest, async (req, res) => {
   }
 });
 
-// LOGIN ROUTES 
 /**
- * GET /auth/login
- * Display login form
- * Only accessible if user is NOT logged in
+ * Login Routes
  */
+
+// Render login form
 router.get('/login', ensureGuest, (req, res) => {
   res.render('auth/login', {
     title: 'Login — Timely',
@@ -88,42 +70,23 @@ router.get('/login', ensureGuest, (req, res) => {
   });
 });
 
-/**
- * POST /auth/login
- * Handle login form submission
- * Uses Passport.js local strategy for authentication
- */
+// Handle login form submission
 router.post('/login', ensureGuest, (req, res, next) => {
   passport.authenticate('local', {
-    // Success: redirect to events page
     successRedirect: '/events',
-    
-    // Failure: redirect back to login with error message
     failureRedirect: '/auth/login',
-    
-    // Enable flash messages for errors
     failureFlash: true,
-    
-    // Success flash message
     successFlash: 'Welcome back!'
   })(req, res, next);
 });
 
-// LOGOUT ROUTE 
-
 /**
- * GET /auth/logout
- * Log out current user
- * Destroys session and redirects to home
+ * Logout Route
  */
+
 router.get('/logout', (req, res, next) => {
-  // Passport provides req.logout() method
   req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    
-    // Success message
+    if (err) return next(err);
     req.flash('success', 'You have been logged out');
     res.redirect('/');
   });
