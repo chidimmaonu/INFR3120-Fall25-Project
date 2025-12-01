@@ -72,10 +72,6 @@ Install dependencies:
 cd INFR3120-Fall25-Project
 npm install
 
-Add your MongoDB credentials:
-Copy .env.(secrets/configs) to .env
-Set your MONGODB_URI and SESSION_SECRET
-
 Start server locally:
 npm start
 
@@ -84,19 +80,9 @@ http://localhost:3000 (before Deployment)
 https://timely-event-planner.onrender.com/ (after Deployment)
 
 Deployment
-The project is deployed on Render (https://render.com/):
-App URL: (Insert deployed URL here, e.g., https://timely.onrender.com)
-API Endpoints
-GET /events – List all events
-POST /events – Create event (protected)
-GET /events/:id – View event details
-POST /events/:id/edit – Edit event (protected)
-POST /events/:id/delete – Delete event (protected)
-GET /auth/login – Login page
-GET /auth/register – Register page
-POST /auth/login – Login action
-POST /auth/register – Register action
-GET /auth/logout – Logout action
+The project is deployed on Render (https://render.com/): 
+App URL: (https://timely.onrender.com)
+
 
 Contributing
 
@@ -105,14 +91,13 @@ Frequent git pull, clear git commit messages, regular sync
 All commits tracked in repo history
 See .gitignore for excluded files (node_modules, .env, logs)
 
-License
-MIT License (for academic and demo use only)
 
 Demo Video
-(Insert YouTube or cloud recording link here)
+https://youtu.be/pW8rr9voxIY
 
 Credits
 
 Group 59 - Ontario Tech University
 INFR3120, Fall 2025
 Aysha Chowdhury, Chidimma Onumaegbu, Tanzib Riasad Krishty
+
