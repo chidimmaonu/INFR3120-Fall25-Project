@@ -13,39 +13,58 @@ const mongoose = require('mongoose');
 // Import session and authentication packages
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const passport = require('passport');
+const passport = require('passport'); // Import passport library
 const flash = require('connect-flash');
 
 
-// Connect to MongoDB
+// ========== CONNECT TO MONGODB ==========
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
-    console.log('✅ MongoDB Connected Successfully!');
+    console.log('MongoDB Connected Successfully!');
   })
   .catch((err) => {
     console.error(' MongoDB Connection Error:', err.message);
     console.log('App will run without database');
   });
 
-// Passport configuration
+// Monitor mongoose connection
+let mongoDB = mongoose.connection;
+mongoDB.on('error', console.error.bind(console, 'MongoDB connection error:'));
+mongoDB.once('open', () => {
+  console.log('Connected to MongoDB database');
+});
+
+// IMPORT and CALL PASSPORT CONFIGURATION
 require('./passport')(passport);
 
-// Import routes
+// ========== IMPORT ROUTES ==========
 var indexRouter = require('../routes/index');
 var eventsRouter = require('../routes/events');
 var authRouter = require('../routes/auth');
+const user = require('../models/user');
 
+// ========== CREATE EXPRESS APP  =========
 var app = express();
 
-// View engine setup
+// ========== VIEW ENGINE SETUP =========
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
 
-// Middleware
+// ========== MIDDLEWARE SETUP =========
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// ========== STATIC FILES =========
+app.use(express.static(path.join(__dirname, '../public')));
+app.use('/Asset', express.static(path.join(__dirname, '../public/Asset'))); 
+app.use('/Content', express.static(path.join(__dirname, '../public/Content')));
+app.use('/Script', express.static(path.join(__dirname, '../public/Script')));
+
+// ========== TRUST PROXY =========
+app.set('trust proxy', 1); 
+
 
 // ========== SESSION CONFIGURATION ==========
 /**
@@ -67,32 +86,29 @@ app.use(session({
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
     collectionName: 'sessions',
-    ttl: 14 * 24 * 60 * 60 // Session expires after 14 days
+    ttl: 14 * 24 * 60 * 60 // Session expires after 14 days (in seconds)
   }),
   
   // Cookie settings
   cookie: {
     maxAge: 14 * 24 * 60 * 60 * 1000, // 14 days in milliseconds
     httpOnly: true, // Prevents client-side JS from accessing cookie
-    secure: process.env.NODE_ENV === 'production' // Use secure cookies in production (HTTPS)
+    secure: false, 
+    sameSite: 'lax' 
   }
 }));
 
-//PASSPORT INITIALIZATION 
+// ========== FLASH MESSAGES ==========
+// Connect-flash for displaying temporary messages
+app.use(flash());
+
+// ========== PASSPORT INITIALIZATION =========
 /**
  * Initialize Passport for authentication
  */
 app.use(passport.initialize());
 app.use(passport.session());
 
-//FLASH MESSAGES
-/**
- * Connect-flash for displaying temporary messages
- * Used for success/error notifications
- */
-app.use(flash());
-
-// GLOBAL VARIABLES
 /**
  * Make user and flash messages available to all templates
  * This allows us to use `user` and `messages` in any EJS file
@@ -109,19 +125,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Static files from public folder
-app.use(express.static(path.join(__dirname, '../public')));
 
-// Serve Asset folder
-app.use('/Asset', express.static(path.join(__dirname, '../public/Asset')));
-
-// Serve Content folder  
-app.use('/Content', express.static(path.join(__dirname, '../public/Content')));
-
-// Serve Script folder
-app.use('/Script', express.static(path.join(__dirname, '../public/Script')));
-
-// Routes
+// ========== ROUTE SETUP =========
 app.use('/', indexRouter);
 app.use('/events', eventsRouter);
 app.use('/auth', authRouter);
