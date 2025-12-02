@@ -1,8 +1,10 @@
 <%- include('../partials/header') %>
 <%- include('../partials/nav') %>
 
+
 <!-- Display Flash Messages -->
 <%- include('../partials/messages') %>
+
 
 <!-- Events Table Section -->
 <section class="card">
@@ -10,7 +12,7 @@
     <h1>Events</h1>
     <span class="badge"><%= events.length %> total</span>
   </div>
-  
+ 
   <% if (events.length === 0) { %>
     <p style="text-align: center; color: #666; padding: 40px 0;">
       <% if (typeof user !== 'undefined' && user) { %>
@@ -37,16 +39,18 @@
             <td><%= event.location %></td>
             <td>
               <% if (typeof user !== 'undefined' && user) { %>
-                <!-- User is logged in - show Edit and Delete buttons -->
+                <!-- Edit Button -->
                 <a href="/events/edit/<%= event._id %>" class="btn btn-ghost">Edit</a>
-                <form action="/events/delete/<%= event._id %>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this event?');">
-                  <button type="submit" class="btn btn-ghost">Delete</button>
-                </form>
+               
+                <!-- Delete Button with red styling -->
+                <a href="/events/delete/<%= event._id %>" class="btn btn-ghost delete-link">
+                  Delete
+                </a>
               <% } else { %>
-                <!-- User is not logged in - show login prompt -->
                 <a href="/auth/login" class="btn btn-ghost">Login to Edit</a>
               <% } %>
             </td>
+           
           </tr>
         <% }); %>
       </tbody>
@@ -54,8 +58,5 @@
   <% } %>
 </section>
 
+
 <%- include('../partials/footer') %>
-
-
-
- 
