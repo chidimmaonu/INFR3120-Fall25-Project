@@ -1,30 +1,57 @@
-<!-- Navigation Header -->
-<!-- Shows different navigation items based on user authentication status -->
-<header class="header">
-  <div class="logo">
-    <a href="/" style="display: flex; align-items: center; text-decoration: none; gap: 0.5px;">
-      <img src="/Asset/images/logo.png" alt="Timely logo">
-    </a>
-  </div>
-  
-  <nav class="nav">
-    <!-- Common Navigation Items -->
-    <a class="btn btn-ghost" href="/">Home</a>
-    <a class="btn btn-ghost" href="/events">View Events</a>
+<!-- Full-Width Navigation Header -->
+<header class="header-fullwidth">
+  <div class="header-content">
+    <!-- Logo Section -->
+    <div class="logo">
+      <a href="/">
+        <img src="/Asset/images/logo.png" alt="Timely Logo">
+        <span class="logo-text">Timely</span>
+      </a>
+    </div>
     
-    <!-- Authentication-based Navigation -->
-    <% if (typeof user !== 'undefined' && user) { %>
-      <!-- User is LOGGED IN - Show Create Event and Logout -->
-      <a class="btn btn-primary" href="/events/create">Create Event</a>
-      <a class="btn btn-ghost" href="/auth/logout">Logout</a>
-      
-      <!-- Display Username (Optional) -->
-      <span class="user-greeting">
-        Hello, <strong><%= user.username %></strong>
-      </span>
-    <% } else { %>
-      <!-- User is NOT logged in - Show Login only -->
-      <a class="btn btn-primary" href="/auth/login">Login</a>
-    <% } %>
-  </nav>
+    <!-- Navigation Links -->
+    <nav class="nav-links">
+      <% if (typeof user !== 'undefined' && user) { %>
+        <!-- User is LOGGED IN -->
+        <a href="/" class="nav-link">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
+        <a href="/events" class="nav-link">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Events</span>
+        </a>
+        <a href="/events/create" class="nav-link">
+          <i class="fas fa-plus-circle"></i>
+          <span>Create Event</span>
+        </a>
+        <a href="/auth/logout" class="nav-link">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
+        
+        <!-- User Greeting -->
+        <span class="user-greeting">
+          <i class="fas fa-user-circle"></i>
+          Hello, <%= user.username %>
+        </span>
+      <% } else { %>
+        <!-- User is NOT logged in -->
+        <a href="/" class="nav-link">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
+        <a href="/auth/login" class="nav-link">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Login</span>
+        </a>
+        <a href="/auth/register" class="nav-link">
+          <i class="fas fa-user-plus"></i>
+          <span>Register</span>
+        </a>
+      <% } %>
+    </nav>
+  </div>
 </header>
+
+<div class="container">

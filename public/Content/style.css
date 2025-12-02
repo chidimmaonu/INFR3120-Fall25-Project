@@ -29,6 +29,7 @@ body {
   max-width: 1100px;
   margin: 0 auto;
   padding: 24px;
+  padding-top: 0; /* Remove top padding */
 }
 
 .card {
@@ -39,26 +40,38 @@ body {
 }
 
 /* ---------- Header & Logo ---------- */
-.header {
+
+.header-fullwidth {
+  background: white;
+  border-bottom: 2px solid var(--primary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  top: 0;
+  z-index: 100;
+  width: 100%;
+}
+
+.header-content {
+  max-width: 1100px; /* Match container width */
+  margin: 0 auto;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
 
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-  border-bottom: 2px solid var(--primary);
-  padding: 16px 24px;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin: -24px -24px 0 -24px; /* Extend to edges, no bottom margin */
-
+/* Logo Section */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .logo a {
   display: flex;
   align-items: center;
-  text-decoration: none; /* Remove underline */
-  gap: 0.5px;
-  color: inherit; 
+  text-decoration: none;
+  gap: 8px;
+  color: inherit;
 }
 
 .logo a:visited {
@@ -66,20 +79,94 @@ body {
 }
 
 .logo img {
-  width: 128px;
-  height: 128px;
+  width: 50px; /* Smaller logo in header */
+  height: 50px;
 }
 
 .logo-text {
-  font-size: 64px;
+  font-size: 28px;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--primary); 
+  letter-spacing: 0.02em;
+  color: var(--primary);
 }
 
-.nav {
+/* Navigation Links */
+.nav-links {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 24px; /* Space between links */
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #374151; /* Dark gray */
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  padding: 8px 0;
+}
+
+.nav-link i {
+  font-size: 18px;
+  color: var(--primary); /* Green icons */
+}
+
+.nav-link:hover {
+  color: var(--primary);
+}
+
+.nav-link:hover i {
+  transform: scale(1.1); /* Slight icon grow on hover */
+  transition: transform 0.2s ease;
+}
+
+/* User Greeting */
+.user-greeting {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #f0fdf4; /* Light green background */
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.user-greeting i {
+  font-size: 18px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-content {
+    padding: 12px 16px;
+  }
+  
+  .logo img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .logo-text {
+    font-size: 22px;
+  }
+  
+  .nav-links {
+    gap: 16px;
+  }
+  
+  .nav-link span {
+    display: none; /* Hide text on mobile, show only icons */
+  }
+  
+  .user-greeting {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
 }
 
 /* ---------- Footer ---------- */
@@ -129,7 +216,7 @@ body {
 
 }
 
-/* ---------- Centered Hero Section (Home Page) ---------- */
+/* ---------- Hero Section (Home Page) ---------- */
 
 .hero-centered {
   min-height: 70vh;
@@ -138,10 +225,10 @@ body {
   justify-content: center;
   text-align: center;
   padding: 60px 20px;
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-  margin: 0 -24px; /* Only extend left and right */
+  background: linear-gradient(90deg, #f0fdf4 0%, #c5eed4 100%);
   margin-top: 20px; /* Add space at top */
   margin-bottom: 0; /* Remove bottom margin */
+  border-radius: 7%;
 }
 
 .hero-content {
