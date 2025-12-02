@@ -38,7 +38,3 @@ module.exports = function(passport) {
     }
   });
 };
-<<<<<<< HEAD
-=======
-
->>>>>>> 1a9d29539b7e90d23464c93141bd37606fa63300

@@ -46,11 +46,14 @@ body {
   margin: 16px 0 24px;
 }
 
-.logo {
+.logo a {
   display: flex;
   align-items: center;
+  text-decoration: none; /* Remove underline */
   gap: 0.5px;
+  color: inherit; 
 }
+
 
 .logo img {
   width: 128px;
@@ -61,6 +64,7 @@ body {
   font-size: 64px;
   font-weight: 700;
   letter-spacing: 0.04em;
+  color: var(--primary); 
 }
 
 .nav {
@@ -381,4 +385,99 @@ textarea {
     width: 96px;
     height: 96px;
   }
+}
+/* ---------- Delete Confirmation Page ---------- */
+
+
+/* Container for delete page */
+.delete-container {
+  max-width: 600px;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Delete page title */
+.delete-title {
+  color: #dc2626;
+  margin-top: 0;
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+
+/* Warning box styling */
+.warning-box {
+  background: #fef3c7; /* Light yellow background */
+  border: 1px solid #f59e0b; /* Orange border */
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 20px 0;
+}
+
+
+.warning-box strong {
+  color: #92400e; /* Dark orange for "Warning!" */
+}
+
+
+.warning-box span {
+  color: #78350f; /* Darker text for message */
+}
+
+
+/* Event details box */
+.event-details {
+  margin: 20px 0;
+  padding: 16px;
+  background: #f9fafb; /* Light gray background */
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+
+.event-details p {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+
+.event-details strong {
+  color: #374151; /* Darker text for labels */
+}
+
+
+/* Delete page action buttons */
+.delete-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+
+/* Red delete button */
+.btn-danger {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: white;
+}
+
+
+.btn-danger:hover {
+  background: #b91c1c; /* Darker red on hover */
+  border-color: #b91c1c;
+}
+
+
+/* Delete link in events table (red text) */
+.delete-link {
+  color: #dc2626;
+}
+
+
+.delete-link:hover {
+  color: #b91c1c;
 }
