@@ -2,9 +2,10 @@
 :root {
   --primary: #1fd14c;
   --bg: #bae99bb4 ;
-  --card: #ffffff;
+  --card: #080808;
   --text: #1fd14c;
-  --muted: #000000;
+  --text-dark: #000000;
+  --muted: #6b7280;
   --border: #000000;
 }
 
@@ -111,7 +112,7 @@ body {
 
 .nav-link i {
   font-size: 18px;
-  color: var(--primary); /* Green icons */
+  color: var(--primary) !important;
 }
 
 .nav-link:hover {
@@ -121,6 +122,13 @@ body {
 .nav-link:hover i {
   transform: scale(1.1); /* Slight icon grow on hover */
   transition: transform 0.2s ease;
+}
+
+/* User badge */
+.badge.bg-success-subtle {
+  background-color: rgba(31, 209, 76, 0.1) !important;
+  color: var(--primary) !important;
+  border-color: var(--primary) !important;
 }
 
 /* User Greeting */
@@ -216,121 +224,6 @@ body {
 
 }
 
-/* ---------- Hero Section (Home Page) ---------- */
-
-.hero-centered {
-  min-height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 60px 20px;
-  background: linear-gradient(90deg, #f0fdf4 0%, #c5eed4 100%);
-  margin-top: 20px; /* Add space at top */
-  margin-bottom: 0; /* Remove bottom margin */
-  border-radius: 7%;
-}
-
-.hero-content {
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.hero-logo {
-  width: 180px;
-  height: 180px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.hero-logo img {
-  width: 140px;
-  height: 140px;
-  object-fit: contain;
-}
-
-.hero-heading {
-  font-size: 56px;
-  font-weight: 800;
-  color: #1fd14c;
-  margin: 20px 0 12px;
-  letter-spacing: -0.02em;
-}
-
-.hero-subtitle {
-  font-size: 24px;
-  font-weight: 600;
-  color: #1fd14c;
-  margin: 12px 0;
-  line-height: 1.4;
-}
-
-.hero-description {
-  font-size: 18px;
-  color: #6b7280;
-  margin: 12px 0 32px;
-  line-height: 1.6;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn-large {
-  padding: 14px 28px;
-  font-size: 16px;
-  font-weight: 600;
-  min-width: 160px;
-}
-
-/* Responsive Design for Hero */
-@media (max-width: 768px) {
-  .hero-centered {
-    min-height: 60vh;
-    padding: 40px 20px;
-  }
-  
-  .hero-logo {
-    width: 140px;
-    height: 140px;
-  }
-  
-  .hero-logo img {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .hero-heading {
-    font-size: 42px;
-  }
-  
-  .hero-subtitle {
-    font-size: 20px;
-  }
-  
-  .hero-description {
-    font-size: 16px;
-  }
-  
-  .hero-buttons {
-    flex-direction: column;
-  }
-  
-  .btn-large {
-    width: 100%;
-  }
-}
 
 /* ---------- Badge ---------- */
 .badge {
@@ -450,7 +343,7 @@ textarea {
   margin-top: 8px;
 }
 
-/* ---------- Alerts ---------- */
+/* ---------- ALERTS ---------- */
 .alert {
   padding: 12px 16px;
   border-radius: 10px;
@@ -470,7 +363,7 @@ textarea {
   color: #991b1b;
 }
 
-/* ---------- Authentication Pages ---------- */
+/* ---------- AUTHENTICATION PAGES ---------- */
 .auth-container {
   max-width: 500px;
   margin: 40px auto;
@@ -540,7 +433,7 @@ textarea {
   text-decoration: underline;
 }
 
-/* ---------- User Greeting in Navigation ---------- */
+/* ---------- USER GREETING ---------- */
 .user-greeting {
   display: flex;
   align-items: center;
@@ -554,7 +447,7 @@ textarea {
   margin-left: 4px;
 }
 
-/* ---------- Responsive ---------- */
+/* ---------- RESPONSIVE DESIGN ---------- */
 @media (max-width: 720px) {
   .hero {
     grid-template-columns: 1fr;
@@ -578,7 +471,7 @@ textarea {
   }
 }
 
-/* ---------- Delete Confirmation Page ---------- */
+/* ---------- DELETE CONFIRMATION PAGE ---------- */
 
 
 /* Container for delete page */
@@ -672,4 +565,208 @@ textarea {
 
 .delete-link:hover {
   color: #b91c1c;
+}
+
+
+/* ========== HOME PAGE HERO SECTION ========== */
+
+/* Full-width hero container with gradient background */
+.hero-container-home {
+  background: var(--card);
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+/* White card wrapper */
+.hero-card-wrapper {
+  background: var(--card);
+  border-radius: 24px;
+  padding: 60px 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  max-height: 700px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Center all hero content */
+.hero-content-center {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+/* Circular logo container */
+.hero-logo-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 30px;
+}
+
+.hero-logo-circle img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+}
+
+/* Main heading (Timely) */
+.hero-main-heading {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--primary); 
+  margin: 20px 0;
+  letter-spacing: -0.02em;
+}
+
+/* Subtitle (Plan, list, and manage...) */
+.hero-subtitle-text {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 16px 0;
+  line-height: 1.4;
+}
+
+/* Description paragraph */
+.hero-description-text {
+  font-size: 1.125rem;
+  color: var(--primary);
+  margin: 16px auto 40px;
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+/* Button container */
+.hero-button-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Hero buttons styling */
+
+/* Button container */
+.hero-button-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-btn {
+  padding: 14px 32px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  min-width: 180px;
+  transition: all 0.2s ease;
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.hero-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(31, 209, 76, 0.3);
+  background: #1bc943;
+}
+
+/* Outline button */
+.hero-btn-outline {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.hero-btn-outline:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+@media (max-width: 768px) {
+  .hero-container-home {
+    min-height: 400px;
+    padding: 40px 20px;
+  }
+  
+  .hero-content-center {
+    padding: 20px 0;
+  }
+  
+  .hero-logo-circle {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 20px;
+  }
+  
+  .hero-logo-circle img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .hero-main-heading {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle-text {
+    font-size: 1.25rem;
+  }
+  
+  .hero-description-text {
+    font-size: 1rem;
+  }
+  
+  .hero-button-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .hero-btn {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-main-heading {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle-text {
+    font-size: 1.125rem;
+  }
+}
+
+/* ========== STICKY FOOTER ========== */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-container-home {
+  flex-grow: 1;
+}
+
+.footer {
+  flex-shrink: 0;
+  width: 100%;
 }

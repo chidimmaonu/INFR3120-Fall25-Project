@@ -1,42 +1,53 @@
 <%- include('partials/header') %>
 <%- include('partials/nav') %>
 
-<!-- Hero Section - Centered Design -->
-<section class="hero-centered">
-  <div class="hero-content">
-    <!-- Logo (circular, centered) -->
-    <div class="hero-logo">
-      <img src="/Asset/images/logo.png" alt="Timely Logo">
-    </div>
-    
-    <!-- Main Heading -->
-    <h1 class="hero-heading">Timely</h1>
-    
-    <!-- Subtitle -->
-    <p class="hero-subtitle">
-      Plan, list, and manage events easily.
-    </p>
-    
-    <!-- Description -->
-    <p class="hero-description">
-      Want to keep track of your events?
-      Timely is your go-to event management app that helps you 
-      organize and stay on top of all your important dates.
-    </p>
-    
-    <!-- Action Buttons -->
-    <div class="hero-buttons">
-      <% if (typeof user !== 'undefined' && user) { %>
-        <!-- User is logged in -->
-        <a class="btn btn-primary btn-large" href="/events">View Events</a>
-        <a class="btn btn-ghost btn-large" href="/events/create">Add New Event</a>
-      <% } else { %>
-        <!-- User is not logged in -->
-        <a class="btn btn-primary btn-large" href="/events">View Events</a>
-        <a class="btn btn-ghost btn-large" href="/auth/register">Get Started</a>
-      <% } %>
+<!-- Hero Section with Card -->
+<div class="hero-container-home">
+  <div class="container">
+    <!-- Card Container -->
+    <div class="hero-card-wrapper">
+      <div class="hero-content-center">
+        <!-- Logo -->
+        <div class="hero-logo-circle">
+          <img src="/Asset/images/logo.png" alt="Timely Logo">
+        </div>
+        
+        <!-- Main Heading -->
+        <h1 class="hero-main-heading">Timely</h1>
+        
+        <!-- Subtitle -->
+        <p class="hero-subtitle-text">
+          Plan, list, and manage events easily.
+        </p>
+        
+        <!-- Description -->
+        <p class="hero-description-text">
+          Want to keep track of your events? Timely is your go-to event management app that helps you organize and stay on top of all your important dates.
+        </p>
+        
+        <!-- Buttons -->
+        <div class="hero-button-group">
+          <% if (typeof user !== 'undefined' && user) { %>
+            <!-- If USER is logged in -->
+            <a href="/events" class="btn btn-success btn-lg hero-btn">
+              <i class="fas fa-calendar-alt me-2"></i>View Events
+            </a>
+            <a href="/events/create" class="btn btn-outline-success btn-lg hero-btn hero-btn-outline">
+              <i class="fas fa-plus-circle me-2"></i>Create Event
+            </a>
+          <% } else { %>
+            <!-- If USER is not logged in -->
+            <a href="/events" class="btn btn-success btn-lg hero-btn">
+              <i class="fas fa-calendar-alt me-2"></i>View Events
+            </a>
+            <a href="/auth/register" class="btn btn-outline-success btn-lg hero-btn hero-btn-outline">
+              <i class="fas fa-user-plus me-2"></i>Get Started
+            </a>
+          <% } %>
+        </div>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
 <%- include('partials/footer') %>

@@ -1,57 +1,73 @@
-<!-- Full-Width Navigation Header -->
-<header class="header-fullwidth">
-  <div class="header-content">
-    <!-- Logo Section -->
-    <div class="logo">
-      <a href="/">
-        <img src="/Asset/images/logo.png" alt="Timely Logo">
-        <span class="logo-text">Timely</span>
-      </a>
-    </div>
+<!-- Bootstrap Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-success border-2 sticky-top">
+  <div class="container-fluid px-4">
+
+    <!-- Logo/Brand -->
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/Asset/images/logo.png" alt="Timely Logo" 
+      width="40" 
+      height="40" 
+      class="me-2">
+      <span class="fw-bold fs-4 text-success">Timely</span>
+    </a>
+    
+    <!-- Mobile Toggle Button -->
+    <button class="navbar-toggler" 
+    type="button" 
+    data-bs-toggle="collapse" 
+    data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     
     <!-- Navigation Links -->
-    <nav class="nav-links">
-      <% if (typeof user !== 'undefined' && user) { %>
-        <!-- User is LOGGED IN -->
-        <a href="/" class="nav-link">
-          <i class="fas fa-home"></i>
-          <span>Home</span>
-        </a>
-        <a href="/events" class="nav-link">
-          <i class="fas fa-calendar-alt"></i>
-          <span>Events</span>
-        </a>
-        <a href="/events/create" class="nav-link">
-          <i class="fas fa-plus-circle"></i>
-          <span>Create Event</span>
-        </a>
-        <a href="/auth/logout" class="nav-link">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </a>
-        
-        <!-- User Greeting -->
-        <span class="user-greeting">
-          <i class="fas fa-user-circle"></i>
-          Hello, <%= user.username %>
-        </span>
-      <% } else { %>
-        <!-- User is NOT logged in -->
-        <a href="/" class="nav-link">
-          <i class="fas fa-home"></i>
-          <span>Home</span>
-        </a>
-        <a href="/auth/login" class="nav-link">
-          <i class="fas fa-sign-in-alt"></i>
-          <span>Login</span>
-        </a>
-        <a href="/auth/register" class="nav-link">
-          <i class="fas fa-user-plus"></i>
-          <span>Register</span>
-        </a>
-      <% } %>
-    </nav>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <% if (typeof user !== 'undefined' && user) { %>
+          <!-- If USER is logged in -->
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="fas fa-home text-success me-1"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/events">
+              <i class="fas fa-calendar-alt text-success me-1"></i> Events
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/logout">
+              <i class="fas fa-sign-out-alt text-success me-1"></i> Logout
+            </a>
+          </li>
+          <!-- USER badge with username -->
+          <li class="nav-item ms-3">
+            <span class="badge bg-success-subtle text-success border border-success px-3 py-2">
+              <i class="fas fa-user-circle me-1"></i>
+              <%= user.username %>
+            </span>
+          </li>
+        <% } else { %>
+          <!-- If no USER is logged in -->
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="fas fa-home text-success me-1"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/login">
+              <i class="fas fa-sign-in-alt text-success me-1"></i> Login
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/register">
+              <i class="fas fa-user-plus text-success me-1"></i> Register
+            </a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
   </div>
-</header>
+</nav>
 
-<div class="container">
+<!-- Main content wrapper -->
+<main class="flex-grow-1 d-flex flex-column">
