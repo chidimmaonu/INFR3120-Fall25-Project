@@ -41,7 +41,7 @@ require('./passport')(passport);
 var indexRouter = require('../routes/index');
 var eventsRouter = require('../routes/events');
 var authRouter = require('../routes/auth');
-const user = require('../models/user');
+var usersRouter = require('../routes/users');
 
 // ========== CREATE EXPRESS APP  =========
 var app = express();
@@ -130,6 +130,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/events', eventsRouter);
 app.use('/auth', authRouter);
+app.use('/users', usersRouter);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

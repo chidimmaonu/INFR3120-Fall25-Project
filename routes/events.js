@@ -34,13 +34,7 @@ router.get('/', async function(req, res, next) {
   }
 });
 
-
-
-
-
-
 //PROTECTED ROUTES (Require Login)
-
 
 /**
  * GET /events/create - Show create form
@@ -57,9 +51,6 @@ router.get('/create', ensureAuthenticated, function(req, res, next) {
     isEdit: false
   });
 });
-
-
-
 
 /**
  * POST /events/create - Handle create form submission
@@ -88,9 +79,6 @@ router.post('/create', ensureAuthenticated, async function(req, res, next) {
   }
 });
 
-
-
-
 /**
  * GET /events/delete/:id - Show delete confirmation page
  * PROTECTED: Only logged-in users can access delete confirmation
@@ -118,9 +106,6 @@ router.get('/delete/:id', ensureAuthenticated, async function(req, res, next) {
     res.redirect('/events');
   }
 });
-
-
-
 
 /**
  * GET /events/edit/:id - Show edit form
@@ -156,9 +141,6 @@ router.get('/edit/:id', ensureAuthenticated, async function(req, res, next) {
   }
 });
 
-
-
-
 /**
  * POST /events/edit/:id - Handle edit form submission
  * PROTECTED: Only logged-in users can update events
@@ -193,11 +175,6 @@ router.post('/edit/:id', ensureAuthenticated, async function(req, res, next) {
   }
 });
 
-
-
-
-
-
 /**
  * POST /events/delete/:id - Handle delete
  * PROTECTED: Only logged-in users can delete events
@@ -222,8 +199,5 @@ router.post('/delete/:id', ensureAuthenticated, async function(req, res, next) {
     res.redirect('/events');
   }
 });
-
-
-
 
 module.exports = router;

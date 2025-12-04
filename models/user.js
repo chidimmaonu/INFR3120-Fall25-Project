@@ -3,14 +3,14 @@ const bcrypt = require('bcryptjs');
 
 /**
  * User Schema for Authentication
- * Stores user credentials and profile information
+ * Supports both local (username/password) and OAuth (Google, GitHub, Twitter) login
  */
 const userSchema = new mongoose.Schema({
+  // ========== LOCAL AUTH FIELDS ==========
+
   // Username - must be unique
   username: {
     type: String,
-    required: [true, 'Username is required'],
-    unique: true,
     trim: true,
     minlength: [3, 'Username must be at least 3 characters long']
   },
@@ -18,8 +18,6 @@ const userSchema = new mongoose.Schema({
   // Email - must be unique and valid format
   email: {
     type: String,
-    required: [true, 'Email is required'],
-    unique: true,
     trim: true,
     lowercase: true,
     match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address']
@@ -28,7 +26,6 @@ const userSchema = new mongoose.Schema({
   // Password - will be hashed before saving
   password: {
     type: String,
-    required: [true, 'Password is required'],
     minlength: [6, 'Password must be at least 6 characters long']
   },
   
@@ -36,37 +33,62 @@ const userSchema = new mongoose.Schema({
   fullName: {
     type: String,
     trim: true
+  },
+  
+  // ========== OAUTH FIELDS ==========
+
+  // OAuth provider info
+  oauthProvider: {
+    type: String,
+    enum: ['local', 'google', 'github', 'twitter'],
+    default: 'local'
+  },
+  
+  // OAuth provider user ID (e.g., Google ID, GitHub ID)
+  oauthId: {
+    type: String,
+    sparse: true // Allows null values, but enforces uniqueness when present
+  },
+  
+  // Profile picture URL from OAuth provider
+  profilePicture: {
+    type: String,
+    default: null
   }
 }, {
-  // Automatically add createdAt and updatedAt timestamps
-  timestamps: true
+  collection: 'users',
+  timestamps: true // Automatically add createdAt and updatedAt timestamps
 });
+
+// ========== INDEXES FOR PERFORMANCE ==========
+// Compound index for OAuth users
+userSchema.index({ oauthProvider: 1, oauthId: 1 }, { unique: true, sparse: true });
 
 /**
  * Pre-save middleware to hash password before saving to database
- * This runs automatically before user.save()
- * NOTE: No 'next' argument is needed for async middleware; errors are thrown and handled by Mongoose.
+ * Only runs for LOCAL authentication (not OAuth)
  */
-userSchema.pre('save', async function () {
-  // Only hash the password if it has been modified (or is new)
-  if (!this.isModified('password')) {
+userSchema.pre('save', async function() {
+  // Skip password hashing for OAuth users (they don't have passwords)
+  if (!this.isModified('password') || !this.password) {
     return;
   }
-  // Generate salt (random data for hashing)
+  
+  // Hash the password
   const salt = await bcrypt.genSalt(10);
-  // Hash the password with the salt
   this.password = await bcrypt.hash(this.password, salt);
 });
 
 /**
  * Method to compare entered password with hashed password in database
- * Used during login to verify credentials
- * @param {string} enteredPassword - The password user entered
- * @returns {boolean} - True if passwords match, false otherwise
+ * Used during login for LOCAL authentication
  */
 userSchema.methods.comparePassword = async function(enteredPassword) {
+  // OAuth users don't have passwords
+  if (!this.password) {
+    return false;
+  }
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Create and export the User model
 module.exports = mongoose.model('User', userSchema);
