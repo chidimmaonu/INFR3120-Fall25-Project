@@ -2,58 +2,82 @@
 <%- include('../partials/nav') %>
 
 <!-- Login Form Section -->
-<section class="card auth-container">
-  <div class="auth-header">
-    <h1>Welcome Back</h1>
-    <p>Log in to manage your events</p>
+<div class="auth-container">
+  <div class="card shadow-sm">
+    <div class="card-body p-4">
+      <!-- Header -->
+      <div class="auth-header">
+        <h1>Welcome Back</h1>
+        <p>Log in to manage your events</p>
+      </div>
+
+      <!-- Display Flash Messages -->
+      <%- include('../partials/messages') %>
+
+      <!-- Login Form -->
+      <form action="/auth/login" method="POST" class="auth-form">
+        
+        <!-- Username Field -->
+        <div class="form-group">
+          <label class="label" for="username">Username *</label>
+          <input 
+            class="form-control" 
+            id="username" 
+            name="username" 
+            type="text"
+            required 
+            placeholder="Enter your username"
+            autofocus
+          >
+        </div>
+        
+        <!-- Password Field -->
+        <div class="form-group">
+          <label class="label" for="password">Password *</label>
+          <input 
+            class="form-control" 
+            id="password" 
+            name="password" 
+            type="password" 
+            required
+            placeholder="Enter your password"
+          >
+        </div>
+        
+        <!-- Submit Button -->
+        <div class="form-group">
+          <button type="submit" class="btn btn-success w-100 btn-lg">
+            <i class="fas fa-sign-in-alt me-2"></i>Log In
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="auth-divider">
+          <span>OR</span>
+        </div>
+
+        <!-- OAUTH BUTTONS -->
+        <div class="oauth-buttons">
+          <!-- Google Login Button -->
+          <a href="/auth/google" class="btn btn-outline-danger w-100 mb-2 oauth-btn">
+            <i class="fab fa-google me-2"></i>
+            Continue with Google
+          </a>
+
+          <!-- GitHub Login Button -->
+          <a href="/auth/github" class="btn btn-outline-dark w-100 oauth-btn">
+            <i class="fab fa-github me-2"></i>
+            Continue with GitHub
+          </a>
+        </div>
+
+        <!-- Register Link -->
+        <div class="auth-footer">
+          <p>Don't have an account? <a href="/auth/register" class="auth-link">Register here</a></p>
+        </div>
+      </form>
+    </div>
   </div>
-
-  <!-- Display Flash Messages -->
-  <%- include('../partials/messages') %>
-
-  <!-- Login Form -->
-  <form action="/auth/login" method="POST" class="auth-form">
-    
-    <!-- Username Field -->
-    <div class="form-group">
-      <label class="label" for="username">Username *</label>
-      <input 
-        class="input" 
-        id="username" 
-        name="username" 
-        type="text"
-        required 
-        placeholder="Enter your username"
-        required
-        autofocus
-      >
-    </div>
-    
-    <!-- Password Field -->
-    <div class="form-group">
-      <label class="label" for="password">Password *</label>
-      <input 
-        class="input" 
-        id="password" 
-        name="password" 
-        type="password" 
-        required
-        placeholder="Enter your password"
-      >
-    </div>
-    
-    <!-- Submit Button -->
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary btn-block">
-        Log In
-      </button>
-    </div>
-
-    <!-- Register Link -->
-    <div class="auth-footer">
-      <p>Don't have an account? <a href="/auth/register" class="auth-link">Register here</a></p>
-    </div>
-  </form>
-</section>
+</div>
 
 <%- include('../partials/footer') %>

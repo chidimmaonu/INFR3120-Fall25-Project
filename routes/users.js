@@ -32,7 +32,7 @@ router.post('/change-password', ensureAuthenticated, async (req, res) => {
 
   // Validation: Check if user is local auth
   if (req.user.oauthProvider !== 'local') {
-    req.flash('error', 'Password change is only available for local accounts');
+    req.flash('error', `You signed in with ${req.user.oauthProvider}. Password change is not available.`);
     return res.redirect('/events');
   }
 
