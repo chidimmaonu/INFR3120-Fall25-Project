@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
   // OAuth provider info
   oauthProvider: {
     type: String,
-    enum: ['local', 'google', 'github', 'twitter'],
+    enum: ['local', 'google', 'github'],
     default: 'local'
   },
   

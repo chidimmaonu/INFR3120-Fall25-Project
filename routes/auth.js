@@ -56,7 +56,7 @@ router.post('/register', ensureGuest, async (req, res) => {
       email,
       password,
       fullName,
-      oauthProvider: 'local' // ⭐ Mark as local auth user
+      oauthProvider: 'local' // Mark as local auth user
     });
     
     await newUser.save();
